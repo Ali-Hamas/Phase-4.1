@@ -10,7 +10,9 @@ load_dotenv()
 # For Neon PostgreSQL: postgresql://username:password@ep-rough-recipe-a5q2haz7.us-east-1.aws.neon.tech/neondb?sslmode=require
 # For local PostgreSQL: postgresql://postgres:your_password@localhost:5432/todo_db
 # For local development without PostgreSQL, use SQLite: sqlite:///./todo.db
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./todo.db")
+DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    DATABASE_URL = "sqlite:///./todo.db"
 
 # Create the engine
 # For SQLite, we need to handle the connection differently

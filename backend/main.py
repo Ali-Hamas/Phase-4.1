@@ -17,10 +17,11 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "https://localhost:3000", "https://127.0.0.1:3000", "http://127.0.0.1:8000", "http://localhost:8000"],  # Frontend URLs
-    allow_credentials=True,
+    allow_origins=["*"],  # Allow all origins for Minikube dynamic ports
+    allow_credentials=False,  # Must be False when using wildcard origins
     allow_methods=["*"],  # Allow all methods
     allow_headers=["*"],  # Allow all headers
+    expose_headers=["*"],  # Expose all headers in response
 )
 
 # JWT and password hashing setup

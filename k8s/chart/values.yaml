@@ -1,0 +1,39 @@
+# Default values for todo-app Helm chart
+
+namespace: todo-app
+
+backend:
+  image:
+    repository: todo-backend
+    tag: local
+    pullPolicy: Never
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 8000
+  resources: {}
+  healthCheck:
+    path: /health
+    initialDelaySeconds: 10
+    periodSeconds: 10
+
+frontend:
+  image:
+    repository: todo-frontend
+    tag: local
+    pullPolicy: Never
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 3000
+  resources: {}
+  env:
+    # This will be set to the backend service URL
+    NEXT_PUBLIC_API_URL: http://todo-backend:8000
+
+secrets:
+  # These should be provided at deployment time or via external secrets management
+  # For local development, set these via --set flags or a separate values file
+  openaiApiKey: ""
+  databaseUrl: ""
+  betterAuthSecret: ""

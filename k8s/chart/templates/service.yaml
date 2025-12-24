@@ -1,0 +1,35 @@
+# Backend Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-backend
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: todo-backend
+spec:
+  type: {{ .Values.backend.service.type }}
+  ports:
+  - port: {{ .Values.backend.service.port }}
+    targetPort: {{ .Values.backend.service.port }}
+    protocol: TCP
+    name: http
+  selector:
+    app: todo-backend
+---
+# Frontend Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-frontend
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: todo-frontend
+spec:
+  type: {{ .Values.frontend.service.type }}
+  ports:
+  - port: {{ .Values.frontend.service.port }}
+    targetPort: {{ .Values.frontend.service.port }}
+    protocol: TCP
+    name: http
+  selector:
+    app: todo-frontend
